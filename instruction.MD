@@ -1,6 +1,6 @@
 # Tutorial: Use Azure Key Vault with an Azure web app in .NET
 
-![](msi.png?raw=true)
+![](msi.png?raw=true "Managed Service Identity")
 
 https://docs.microsoft.com/en-us/azure/key-vault/tutorial-net-create-vault-azure-web-app
 
