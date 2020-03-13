@@ -1,5 +1,7 @@
 # Tutorial: Use Azure Key Vault with an Azure web app in .NET
 
+![](msi.png?raw=true)
+
 https://docs.microsoft.com/en-us/azure/key-vault/tutorial-net-create-vault-azure-web-app
 
 Before you begin, read Key Vault basic concepts.
