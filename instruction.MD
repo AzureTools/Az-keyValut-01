@@ -1,3 +1,5 @@
+# Tutorial: Use Azure Key Vault with an Azure web app in .NET
+
 https://docs.microsoft.com/en-us/azure/key-vault/tutorial-net-create-vault-azure-web-app
 
 Before you begin, read Key Vault basic concepts.
@@ -6,18 +8,19 @@ https://docs.microsoft.com/en-us/azure/key-vault/basic-concepts
 
 az login
 
-# To list locations: az account list-locations --output table
+## To list locations: az account list-locations --output table
+```
 az group create --name "<YourResourceGroupName>" --location "West US"
 
 az keyvault create --name "<YourKeyVaultName>" --resource-group "<YourResourceGroupName>" --location "West US"
+```
 
-
-# add secret
+## add secret
+```
 az keyvault secret set --vault-name "<YourKeyVaultName>" --name "AppSecret" --value "MySecret"
 
-
 az keyvault secret show --name "AppSecret" --vault-name "<YourKeyVaultName>"
-
+```
 
 Create a .NET Core web app
 
@@ -30,10 +33,11 @@ KeyVault
 https://www.nuget.org/packages/Microsoft.Azure.KeyVault
 
 https://www.nuget.org/packages/Microsoft.Azure.KeyVault
- 1. using Microsoft.Azure.KeyVault;
- 1. using Microsoft.Azure.KeyVault.Models;
- 1. using Microsoft.Azure.Services.AppAuthentication;
- 
+```
+  using Microsoft.Azure.KeyVault;
+  using Microsoft.Azure.KeyVault.Models;
+  using Microsoft.Azure.Services.AppAuthentication;
+ ```
  
  
  Your code in the AboutModel class should look like this:
@@ -94,8 +98,9 @@ The value for AppSecret is displayed.
  # Enable a managed identity
  
  
- 
+ ```
  az webapp identity assign --name "<YourAppName>" --resource-group "<YourResourceGroupName>"
+ ```
  
  Replace <YourAppName> with the name of the published app on Azure.
 For example, if your published app name was MyAwesomeapp.azurewebsites.net, replace <YourAppName> with MyAwesomeapp
@@ -103,12 +108,13 @@ For example, if your published app name was MyAwesomeapp.azurewebsites.net, repl
 
  
  Make a note of the PrincipalId (When you publish)
+ ```
  {
   "principalId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "tenantId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "type": "SystemAssigned"
 }
-
+```
 
 NOTE:
 switching the Identity / System assigned setting to On in the web application properties.
@@ -118,9 +124,9 @@ switching the Identity / System assigned setting to On in the web application pr
  # Assign permissions to your app
  Replace <YourKeyVaultName> with the name of your key vault, and replace <PrincipalId> with the value of the PrincipalId in the following command:
  
- 
+ ```
  az keyvault set-policy --name '<YourKeyVaultName>' --object-id <PrincipalId> --secret-permissions get list
- 
+ ```
  This command gives the identity (MSI) of the app service permission to do get and list operations on your key vault.
  
  
